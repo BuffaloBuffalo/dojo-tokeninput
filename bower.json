@@ -1,0 +1,8 @@
+{
+	"name": "dojo-tokeninput",
+	
+	"version": "0.0.1",
+	"dependencies": {
+		"dojo": ">=1.8"
+	}
+}

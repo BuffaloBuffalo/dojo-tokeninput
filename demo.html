@@ -1,11 +1,27 @@
 <html>
 <head>
+   <!--
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="src/jquery.tokeninput.js"></script>
-
+    -->
     <link rel="stylesheet" href="styles/token-input.css" type="text/css" />
     <link rel="stylesheet" href="styles/token-input-facebook.css" type="text/css" />
 
+    <script type="text/javascript">
+        var dojoConfig ={
+            async:1,
+            packages:[
+                {name:'tokeninput',location:'src'}
+            ]
+        };
+    </script>
+    <script src="bower_components/dojo/dojo.js"></script>
+    
+    <script>
+        require(['tokeninput/tokeninput','dojo/domReady!'],function(tokeninput){
+            slidebars();
+        });
+    </script>
     <script type="text/javascript">
     $(document).ready(function() {
         $("input[type=button]").click(function () {
