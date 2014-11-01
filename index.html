@@ -4,14 +4,76 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
     <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <!--
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-
+    
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    -->
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+
+
+    <!--CSS for js widget -->
+  
+
+    <link rel="stylesheet" href="stylesheets/module/token-input.css" type="text/css" />
+    <link rel="stylesheet" href="stylesheets/module/token-input-facebook.css" type="text/css" />
+    <link rel="stylesheet" href="stylesheets/module/token-input-mac.css" type="text/css" />
+
+    <script type="text/javascript">
+        var dojoConfig ={
+            async:1,
+            packages:[
+                {name:'tokeninput',location:location.pathname.replace(/\/[^/]+$/, '') + 'js/dojo-tokeninput'}
+            ]
+        };
+    </script>
+    <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.2/dojo/dojo.js"></script>
+    
+    <script>
+        require(['dojo/dom',
+                'dojo/dom-form',
+                'dojo/query',
+                'tokeninput/tokeninput','dojo/domReady!'],function(dom,domForm,query,tokenizer){
+            var data = [
+                {id: 7, name: "Ruby"},
+                {id: 11, name: "Python"},
+                {id: 13, name: "JavaScript"},
+                {id: 17, name: "ActionScript"},
+                {id: 19, name: "Scheme"},
+                {id: 23, name: "Lisp"},
+                {id: 29, name: "C#"},
+                {id: 31, name: "Fortran"},
+                {id: 37, name: "Visual Basic"},
+                {id: 41, name: "C"},
+                {id: 43, name: "C++"},
+                {id: 47, name: "Java"}
+            ];
+            tokenizer.tokenInput(dom.byId("demo-input-local"),data);
+            tokenizer.tokenInput(dom.byId("demo-input-facebook-theme"),data, {
+                theme: "facebook",
+                preventDuplicates:true,
+                hintText: "Find Programming Languages",
+                noResultsText: "No Matching Results",
+                searchingText: "Searching For Languages..",
+                deleteText: "&#x2603;"
+            });
+           tokenizer.tokenInput(dom.byId("demo-input-mac-theme"),data, {
+                theme: "mac",
+                searchDelay: 2000,
+                minChars: 3,
+                tokenLimit: 3
+            });
+        });
+    </script>
+
+
 
     <title>Dojo-tokeninput by BuffaloBuffalo</title>
   </head>
@@ -31,30 +93,21 @@
           <h3>
 <a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>Here are some examples of how the plugin is used.  The suggestions are programming language names</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
-
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
-
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
+        <h4>Simple Local Data Search</h4>
+        <div>
+            <input type="text" id="demo-input-local" name="simpleLocalData" />
+        </div>
+        <h4 id="theme">Facebook Theme With Options</h4>
+        <div>
+            <input type="text" id="demo-input-facebook-theme" name="faceBookLocalData" />
+        </div>
+        <h4 id="mac-theme">Mac Theme With Search Options</h4>
+        <div>
+            <input type="text" id="demo-input-mac-theme" name="macTheme" />
+        </div>
 <h3>
 <a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
 
