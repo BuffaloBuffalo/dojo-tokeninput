@@ -6,7 +6,7 @@
     -->
     <link rel="stylesheet" href="styles/token-input.css" type="text/css" />
     <link rel="stylesheet" href="styles/token-input-facebook.css" type="text/css" />
-
+    <link rel="stylesheet" href="styles/token-input-mac.css" type="text/css" />
     <script type="text/javascript">
         var dojoConfig ={
             async:1,
@@ -18,8 +18,11 @@
     <script src="bower_components/dojo/dojo.js"></script>
     
     <script>
-        require(['dojo/dom','tokeninput/tokeninput','dojo/domReady!'],function(dom,tokenizer){
-            tokenizer.tokenInput(dom.byId("demo-input-local"),[
+        require(['dojo/dom',
+                'dojo/dom-form',
+                'dojo/query',
+                'tokeninput/tokeninput','dojo/domReady!'],function(dom,domForm,query,tokenizer){
+            var data = [
                 {id: 7, name: "Ruby"},
                 {id: 11, name: "Python"},
                 {id: 13, name: "JavaScript"},
@@ -32,27 +35,32 @@
                 {id: 41, name: "C"},
                 {id: 43, name: "C++"},
                 {id: 47, name: "Java"}
-            ]);
-            /*
-            $tokenizer.tokenInput(dom.byId("#demo-input-facebook-theme"),"http://shell.loopj.com/tokeninput/tvshows.php", {
-                theme: "facebook"
-            });
+            ];
+            tokenizer.tokenInput(dom.byId("demo-input-local"),data);
+            
+            
 
-            $("#demo-input-custom-labels").tokenInput("http://shell.loopj.com/tokeninput/tvshows.php", {
-                hintText: "I can has tv shows?",
-                noResultsText: "O noes",
-                searchingText: "Meowing..."
-            });
-
-            $("#demo-input-custom-delete").tokenInput("http://shell.loopj.com/tokeninput/tvshows.php", {
+            
+           tokenizer.tokenInput(dom.byId("demo-input-facebook-theme"),data, {
+                theme: "facebook",
+                preventDuplicates:true,
+                hintText: "Find Programming Languages",
+                noResultsText: "No Matching Results",
+                searchingText: "Searching For Languages..",
                 deleteText: "&#x2603;"
             });
-            */
+           tokenizer.tokenInput(dom.byId("demo-input-mac-theme"),data, {
+                theme: "mac",
+                searchDelay: 2000,
+                minChars: 3,
+                tokenLimit: 3
+            });
+            
 
-            // $("input[type=button]").click(function () {
-            //     alert("Would submit: " + $(this).siblings("input[type=text]").val());
-            // });
-
+            query('form').on('submit',function(evt){
+                evt.preventDefault();
+                console.log(domForm.toObject(evt.currentTarget));
+            });
         });
     </script>
 </head>
@@ -74,35 +82,30 @@
     
     </div>
 -->
+    <form>
+        <h2>Simple Local Data Search</h2>
+        <div>
+            <input type="text" id="demo-input-local" name="simpleLocalData" />
+            <input type="submit" value="Get Values" />
+        </div>
+    </form>
 
-    <h2>Simple Local Data Search</h2>
-    <div>
-        <input type="text" id="demo-input-local" name="blah" />
-        <input type="button" value="Submit" />
-    </div>
-
+    <form>
+        <h2 id="theme">Facebook Theme With Options</h2>
+        <div>
+            <input type="text" id="demo-input-facebook-theme" name="faceBookLocalData" />
+            <input type="submit" value="Get Values" />
+        </div>
+    </form>
+    <form>
+        <h2 id="mac-theme">Mac Theme With Search Options</h2>
+        <div>
+            <input type="text" id="demo-input-mac-theme" name="macTheme" />
+            <input type="submit" value="Get Values" />
+        </div>
+    </form>
 <!--
-    <h2 id="theme">Facebook Theme</h2>
-    <div>
-        <input type="text" id="demo-input-facebook-theme" name="blah2" />
-        <input type="button" value="Submit" />
-    </div>
 
-
-    <h2 id="custom-labels">Custom Labels</h2>
-    <div>
-        <input type="text" id="demo-input-custom-labels" name="blah" />
-        <input type="button" value="Submit" />
-    </div>
-
-
-    <h2 id="custom-delete">Custom Delete Icon</h2>
-    <div>
-        <input type="text" id="demo-input-custom-delete" name="blah" />
-        <input type="button" value="Submit" />
-    </div>
--->
-<!--
     <h2 id="custom-limits">Custom Search Delay, Search Limit &amp; Token Limit</h2>
     <div>
         <input type="text" id="demo-input-custom-limits" name="blah" />
@@ -113,34 +116,6 @@
                 searchDelay: 2000,
                 minChars: 4,
                 tokenLimit: 3
-            });
-        });
-        </script>
-    </div>
-
-
-    <h2 id="prevent-custom-delimiter">Custom Token Delimiter</h2>
-    <div>
-        <input type="text" id="demo-input-custom-delimiter" name="blah" />
-        <input type="button" value="Submit" />
-        <script type="text/javascript">
-        $(document).ready(function() {
-            $("#demo-input-custom-delimiter").tokenInput("http://shell.loopj.com/tokeninput/tvshows.php", {
-                tokenDelimiter: "|"
-            });
-        });
-        </script>
-    </div>
-
-
-    <h2 id="prevent-duplicates">No Duplicates</h2>
-    <div>
-        <input type="text" id="demo-input-prevent-duplicates" name="blah" />
-        <input type="button" value="Submit" />
-        <script type="text/javascript">
-        $(document).ready(function() {
-            $("#demo-input-prevent-duplicates").tokenInput("http://shell.loopj.com/tokeninput/tvshows.php", {
-                preventDuplicates: true
             });
         });
         </script>
@@ -184,18 +159,6 @@
     </div>
 
 
-    <h2 id="disable-animation">Disable Animation on Dropdown</h2>
-    <div>
-        <input type="text" id="demo-input-disable-animation" name="blah" />
-        <input type="button" value="Submit" />
-        <script type="text/javascript">
-        $(document).ready(function() {
-            $("#demo-input-disable-animation").tokenInput("http://shell.loopj.com/tokeninput/tvshows.php", {
-                animateDropdown: false
-            });
-        });
-        </script>
-    </div>
 
 
     <h2 id="onresult">Modify Response with onResult Callback</h2>

@@ -247,11 +247,11 @@ define(['dojo/_base/array',
 	                    return true;
 	                  }
 	                }
-	                event.stopPropagation();
-	                event.preventDefault();
-	              }
-	              return false;
 
+	              }
+	              event.stopPropagation();
+	              event.preventDefault();
+	              return false;
 	            case KEY.ESCAPE:
 	              hide_dropdown();
 	              return true;
@@ -268,8 +268,7 @@ define(['dojo/_base/array',
 	    // Keep a reference to the original input box
 	    var hidden_input = query(input);
 	    var originalInputNode = input;
-	    domStyle.set(hidden_input,'display','none')
-	    hidden_input.val('');
+	    hidden_input.style('display','none').val('');
 	    on(originalInputNode,'focus',function () {
 	       focus_with_timeout(input_box);
 	    });
@@ -441,9 +440,9 @@ define(['dojo/_base/array',
 	    //
 
 	    this.clear = function() {
-	        token_list.children("li").each(function() {
-	            if (query(this).children("input").length === 0) {
-	                delete_token(query(this));
+	        token_list.children("li").forEach(function(node) {
+	            if (query(node).children("input").length === 0) {
+	                delete_token(query(node));
 	            }
 	        });
 	    };
@@ -453,9 +452,9 @@ define(['dojo/_base/array',
 	    };
 
 	    this.remove = function(item) {
-	        token_list.children("li").each(function() {
-	            if (query(this).children("input").length === 0) {
-	                var currToken = query(this).singleData("tokeninput");
+	        token_list.children("li").forEach(function(node) {
+	            if (query(node).children("input").length === 0) {
+	                var currToken = query(node).singleData("tokeninput");
 	                var match = true;
 	                for (var prop in item) {
 	                    if (item[prop] !== currToken[prop]) {
@@ -464,7 +463,7 @@ define(['dojo/_base/array',
 	                    }
 	                }
 	                if (match) {
-	                    delete_token(query(this));
+	                    delete_token(query(node));
 	                }
 	            }
 	        });
@@ -614,8 +613,8 @@ define(['dojo/_base/array',
 	        // See if the token already exists and select it if we don't want duplicates
 	        if(token_count > 0 && query(input).singleData("settings").preventDuplicates) {
 	            var found_existing_token = null;
-	            token_list.children().each(function () {
-	                var existing_token = query(this);
+	            token_list.children().forEach(function (node) {
+	                var existing_token = query(node);
 	                var existing_data = existing_token.singleData("tokeninput");//$.data(existing_token[0], "tokeninput");
 	                if(existing_data && existing_data[settings.tokenValue] === item[settings.tokenValue]) {
 	                    found_existing_token = existing_token;
@@ -625,7 +624,7 @@ define(['dojo/_base/array',
 
 	            if(found_existing_token) {
 	                select_token(found_existing_token);
-	                input_token.insertAfter(found_existing_token);
+	                inputTokenObj.insertAfter(found_existing_token);
 	                focus_with_timeout(input_box);
 	                return;
 	            }
@@ -669,13 +668,13 @@ define(['dojo/_base/array',
 	        selected_token = null;
 
 	        if(position === POSITION.BEFORE) {
-	            input_token.insertBefore(token);
+	            inputTokenObj.insertBefore(token);
 	            selected_token_index--;
 	        } else if(position === POSITION.AFTER) {
-	            input_token.insertAfter(token);
+	            inputTokenObj.insertAfter(token);
 	            selected_token_index++;
 	        } else {
-	            domConstruct.place(input_token,token_list);
+	        	token_list.append(inputTokenObj);
 	            selected_token_index = token_count;
 	        }
 
@@ -757,7 +756,6 @@ define(['dojo/_base/array',
 	    }
 
 	    function show_dropdown() {
-	    	// debugger;
 	        var margin = domGeom.getMarginBox(tokenListNode);
 	        var zIndex = query(input).singleData("settings").zindex;
 	        dropdown.style({
@@ -877,14 +875,14 @@ define(['dojo/_base/array',
 
 	            show_dropdown();
 
-	            // if(query(input).singleData("settings").animateDropdown) {
-	            // 	//TODO FX slide down???
-	            //     // dropdown_ul.slideDown("fast");
-	            //     dropdown_ul.wipeIn().play();
-	            // } else {
+	            if(query(input).singleData("settings").animateDropdown) {
+	            	//TODO FX slide down???
+	                // dropdown_ul.slideDown("fast");
+	                query(dropdown_ul).wipeIn().play();
+	            } else {
 	                // dropdown_ul.show();
 	                domStyle.set(dropdown_ul,'display','');
-	            //}
+	            }
 	        } else {
 	            if(query(input).singleData("settings").noResultsText) {
 	                dropdown.html("<p>" + escapeHTML(query(input).singleData("settings").noResultsText) + "</p>");
