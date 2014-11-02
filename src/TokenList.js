@@ -387,8 +387,8 @@ define(['dojo/_base/array',
 	        style:
 	        {
 	            position: "absolute",
-	            top: -9999,
-	            left: -9999,
+	            top: '-9999px',
+	            left: '-9999px',
 	            width: "auto",
 	            fontSize: domStyle.get(input_box[0],'fontSize'),
 	            fontFamily: domStyle.get(input_box[0],'fontFamily'),
@@ -756,13 +756,15 @@ define(['dojo/_base/array',
 	    }
 
 	    function show_dropdown() {
-	        var margin = domGeom.getMarginBox(tokenListNode);
+	        var position = domGeom.position(tokenListNode);
 	        var zIndex = query(input).singleData("settings").zindex;
+	        //dojo.position doesn't seem to do the same thing as jquery's offset
+	        var top = tokenListNode.offsetTop + (tokenListNode.offsetParent && tokenListNode.offsetParent.offsetTop ||0)
 	        dropdown.style({
 	            position: "absolute",
-	            top: (margin.t + margin.h)+'px',
-	            left: margin.l+'px',
-	            width: margin.w+'px',
+	            top: (top + position.h)+'px',
+	            left: position.x+'px',
+	            width: position.w+'px',
 	            zIndex: zIndex,
 	            display:''
 	        });
