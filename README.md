@@ -1,15 +1,21 @@
-jQuery Tokeninput: A Tokenizing Autocomplete Text Entry
+dojo-tokeninput: A dojo-based autocomplete widget
 =======================================================
 
-This is a dojo port of thq jQuery Tokeniput plugin.
+This is a dojo port of the [jQuery Tokeniput plugin](https://github.com/loopj/jquery-tokeninput).  See [the project site](http://buffalobuffalo.github.io/dojo-tokeninput/) for more information
 
 
-Overview
+Development
 --------
-Tokeninput is a jQuery plugin which allows your users to select multiple items from a predefined list, using autocompletion as they type to find each item. You may have seen a similar type of text entry when filling in the recipients field sending messages on facebook.
+This module is in active development.  The eventual goal is for the codebase to be less of a jquery-tokeninput port and to have a more dojo-like implementation.  
 
-Documentation, Features and Demos
+Future tasks are
+1. Store support- support `dojo/store` API
+2. Make the widget work within the `dijit/form` ecosystem for getting/setting values
+3. Replace the query/NodeList usage with more dijit friendly paradigms.
+
+Inspiration
 ---------------------------------
-Full details and documentation can be found on the project page here:
+This project came about as a result of the lack of flexible multi-valued autocomplete widgets in the `dijit` and `dojox` projects.  `dijit/form/FilteringSelect` works for autocompleting a single value, and `dojox/form/CheckedMultiSelect` works for multi-valued options, but tends to flounder when working with large lists of values.
 
-<http://loopj.com/jquery-tokeninput/>
+
+Full information on the original project can be found on the [loopj site](http://loopj.com/jquery-tokeninput).
